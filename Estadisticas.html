@@ -1,0 +1,252 @@
+<canvas id="barChart" width="400" height="300"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const barCtx = document.getElementById('barChart').getContext('2d');
+  const barChart = new Chart(barCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Eólica', 'Geotérmica', 'Hidroeléctrica', 'Biocombustibles', 'Solar'],
+      datasets: [{
+        label: 'Producción de Energía (GWh)',
+        data: [0.87, 0.00, 1598.46, 98.77, 0.84],
+        backgroundColor: [
+          'rgba(54, 162, 235, 0.7)',
+          'rgba(255, 99, 132, 0.7)',
+          'rgba(75, 192, 192, 0.7)',
+          'rgba(255, 159, 64, 0.7)',
+          'rgba(153, 102, 255, 0.7)'
+        ],
+        borderColor: [
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(153, 102, 255, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Producción de Energía Renovable por Fuente en Colombia',
+          font: {
+            size: 16
+          }
+        },
+        legend: {
+          position: 'top',
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Producción (GWh)'
+          }
+        }
+      }
+    }
+  });
+</script>
+
+<canvas id="pieChart" width="400" height="300"></canvas>
+
+<script>
+  const pieCtx = document.getElementById('pieChart').getContext('2d');
+  const pieChart = new Chart(pieCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Eólica', 'Solar', 'Hidroeléctrica', 'Otras Renovables'],
+      datasets: [{
+        data: [0.01, 66.45, 1.49, 1.30],
+        backgroundColor: [
+          'rgba(54, 162, 235, 0.7)',
+          'rgba(255, 206, 86, 0.7)',
+          'rgba(75, 192, 192, 0.7)',
+          'rgba(153, 102, 255, 0.7)'
+        ],
+        borderColor: [
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Participación de Energías Renovables en Colombia',
+          font: {
+            size: 16
+          }
+        },
+        legend: {
+          position: 'right',
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return `${context.label}: ${context.raw}%`;
+            }
+          }
+        }
+      }
+    }
+  });
+</script>
+
+<canvas id="lineChart" width="400" height="300"></canvas>
+
+<script>
+  // Datos (puedes cargarlos desde tu base de datos o un archivo JSON)
+  const capacityData = {
+    years: [2015, 2016, 2017, 2018, 2019, 2020, 2021],
+    wind: [0.0, 0.0, 0.0, 0.04, 0.08, 0.15, 0.22],
+    solar: [0.0, 0.0, 0.01, 0.03, 0.07, 0.15, 0.32],
+    geothermal: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+  };
+
+  const lineCtx = document.getElementById('lineChart').getContext('2d');
+  const lineChart = new Chart(lineCtx, {
+    type: 'line',
+    data: {
+      labels: capacityData.years,
+      datasets: [
+        {
+          label: 'Eólica (GW)',
+          data: capacityData.wind,
+          borderColor: 'rgba(54, 162, 235, 1)',
+          backgroundColor: 'rgba(54, 162, 235, 0.1)',
+          tension: 0.3,
+          fill: false
+        },
+        {
+          label: 'Solar (GW)',
+          data: capacityData.solar,
+          borderColor: 'rgba(255, 206, 86, 1)',
+          backgroundColor: 'rgba(255, 206, 86, 0.1)',
+          tension: 0.3,
+          fill: false
+        },
+        {
+          label: 'Geotérmica (GW)',
+          data: capacityData.geothermal,
+          borderColor: 'rgba(255, 99, 132, 1)',
+          backgroundColor: 'rgba(255, 99, 132, 0.1)',
+          tension: 0.3,
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Tendencia en la Capacidad Instalada de Energías Renovables',
+          font: {
+            size: 16
+          }
+        },
+        legend: {
+          position: 'top',
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Capacidad (GW)'
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Año'
+          }
+        }
+      }
+    }
+  });
+</script>
+
+<canvas id="areaChart" width="400" height="300"></canvas>
+
+<script>
+  // Datos de ejemplo (deberías reemplazarlos con datos reales de tu base de datos)
+  const energyData = {
+    periods: ["1965-1974", "1975-1979", "1980-1989", "1990-1999", "2000-2009", "2010-2021"],
+    renewable: [5, 8, 35, 45, 55, 70], // Valores aproximados en TWh
+    conventional: [95, 92, 65, 55, 45, 30]  // Valores aproximados en TWh
+  };
+
+  const areaCtx = document.getElementById('areaChart').getContext('2d');
+  const areaChart = new Chart(areaCtx, {
+    type: 'line',
+    data: {
+      labels: energyData.periods,
+      datasets: [
+        {
+          label: 'Energía Renovable (TWh)',
+          data: energyData.renewable,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          tension: 0.3,
+          fill: true
+        },
+        {
+          label: 'Energía Convencional (TWh)',
+          data: energyData.conventional,
+          borderColor: 'rgba(255, 99, 132, 1)',
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          tension: 0.3,
+          fill: true
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Comparación entre Consumo de Energía Renovable y Convencional',
+          font: {
+            size: 16
+          }
+        },
+        legend: {
+          position: 'top',
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Consumo (TWh)'
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Periodo'
+          }
+        }
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index'
+      }
+    }
+  });
+</script>
